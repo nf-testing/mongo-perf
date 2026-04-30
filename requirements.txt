@@ -1,4 +1,4 @@
-pymongo==4.3.3
+pymongo==4.17.0
 bottle>=0.12.9
 argparse==1.2.1
 requests>=2.4.3

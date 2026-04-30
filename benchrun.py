@@ -54,7 +54,7 @@ def parse_arguments():
                         type=int, default=0, choices=[0, 1, 2])
     parser.add_argument('-s', '--shell', dest='shellpath',
                         help="Path to the mongo shell executable to use.",
-                        default='mongo')
+                        default='mongosh')
     parser.add_argument('-w', dest='w',
                         help='w write concern',
                         type=int, default=0)

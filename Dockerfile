@@ -22,7 +22,10 @@ RUN pip3 install --break-system-packages -r requirements.txt
 
 COPY . .
 
-RUN chown -R mongo-shell:mongo-shell .
+# Setting the ownership of the /data dir, because this is not intended for use
+# as a real MongoDB server container, and the defaults should Just Work
+RUN chown -R mongo-shell:mongo-shell . && \
+  chown -R mongo-shell:mongo-shell /data/
 
 USER mongo-shell:mongo-shell
 

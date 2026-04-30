@@ -5,4 +5,6 @@ tags
 *.swp
 benchrun_daemon.conf
 .venv/
-node_modules
+.git/
+.github/
+node_modules/

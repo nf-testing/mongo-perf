@@ -387,7 +387,7 @@ function runTest(test, {
         // For loop is INSIDE for-each loop so that duplicated instructions are adjacent.
         // (& should not be factored out for that reason.)
         for (var i = 0; i < (multidb * multicoll); i++) {
-            var op = Object.extend({}, z, true);
+            var op = JSON.parse(JSON.stringify(z));
             op = prepOp(collections[i], op);
             new_ops.push(op);
         }
@@ -428,7 +428,7 @@ function runTest(test, {
     // Make sure the system is queisced
     // Check for dropped collections
     checkForDroppedCollectionsTestDBs(db, multidb)
-    db.adminCommand({fsync: 1});
+    try { db.adminCommand({fsync: 1}); } catch (e) {}
 
 
     // invoke the built-in mongo shell function
@@ -1052,14 +1052,14 @@ function collectionPopulator(isView, nDocs, indexes, docGenerator, collectionOpt
 
             var viewCreationSpec = {create: viewName, viewOn: collectionName};
             assert.commandWorked(
-                db.runCommand(Object.extend(viewCreationSpec, collectionOptions)));
+                db.runCommand(Object.assign(viewCreationSpec, collectionOptions)));
         } else {
             collection = collectionOrView;
         }
 
         var collectionCreationSpec = {create: collection.getName()};
         assert.commandWorked(
-            db.runCommand(Object.extend(collectionCreationSpec, collectionOptions)));
+            db.runCommand(Object.assign(collectionCreationSpec, collectionOptions)));
         var bulkOp = collection.initializeUnorderedBulkOp();
         for (var i = 0; i < nDocs; i++) {
             bulkOp.insert(docGenerator(i));

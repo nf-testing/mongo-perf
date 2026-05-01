@@ -134,7 +134,7 @@ function CommandTracer(testName, options) {
     if (typeof TestData === 'undefined') { TestData = {}; }
     var testDataDisableImplicitSessionsOriginal = TestData.disableImplicitSessions;
     var mongoRunCommandOriginal = Mongo.prototype.runCommand;
-    var benchRunOriginal = benchRun;
+    var benchRunOriginal = (typeof benchRun !== 'undefined') ? benchRun : undefined;
 
     var pre = [];
     var ops;
